@@ -164,7 +164,10 @@ mode "resize" {
 
 bindsym Mod1+r mode "resize"
 #bindsym Mod1+Control+l exec "i3lock -c 000000"
-bindsym Mod1+Control+l exec "xscreensaver-command -lock"
+#bindsym Mod1+Control+l exec "xscreensaver-command -lock"
+#
+#
+bindsym Mod1+Control+l exec --no-startup-id "import -depth 8 -window root /tmp/screenshot.png && corrupter -mag 2 -boffset 3 /tmp/screenshot.png /tmp/out.png && i3lock -i /tmp/out.png"                          
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -226,10 +229,13 @@ gaps outer 5
 
 # exec "compton -b -f --inactive-dim 0.2 --active-opacity 0.94 -c"
 exec "compton -b"
-exec "feh --bg-fill \"/home/tv249146/Pictures/wall0.jpg\""
+exec "feh --bg-fill \"/home/tv249146/Pictures/wall999.png\""
 exec "--no-startup-id xscreensaver -no-splash"
 exec "--no-startup-id setxkbmap us altgr-intl"
 exec "--no-startup-id emacs --daemon"
+
+
+
 
 assign [class="Firefox"] 2
 assign [class="Thunderbird"] 4
