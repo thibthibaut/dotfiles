@@ -229,11 +229,12 @@ gaps outer 5
 
 # exec "compton -b -f --inactive-dim 0.2 --active-opacity 0.94 -c"
 exec "compton -b"
-exec "feh --bg-fill \"/home/tv249146/Pictures/wall999.png\""
+#exec "feh --bg-fill \"/home/tv249146/Pictures/wall999.png\""
+exec "feh --bg-fill \"/home/tv249146/workspace/src/ros_FACE/ros_FACE_webdisplay/images/background.png\""
+
 exec "--no-startup-id xscreensaver -no-splash"
 exec "--no-startup-id setxkbmap us altgr-intl"
 exec "--no-startup-id emacs --daemon"
-
 
 
 
