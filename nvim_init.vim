@@ -3,6 +3,9 @@ filetype off                  " required
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'preservim/nerdtree'
+Plug 'preservim/nerdcommenter'
+Plug 'vim-scripts/c.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-surround'
 Plug 'kien/ctrlp.vim'
@@ -14,7 +17,6 @@ Plug 'scrooloose/nerdtree'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'majutsushi/tagbar'
 Plug 'tpope/vim-commentary'
-Plug 'DoxygenToolkit.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'mhartington/oceanic-next'
 Plug 'jiangmiao/auto-pairs'
@@ -23,8 +25,8 @@ Plug 'rhysd/vim-clang-format'
 Plug 'airblade/vim-gitgutter'
 Plug 'mhinz/vim-startify'
 Plug 'thibthibaut/vim-arduino-ino', { 'branch': 'feature_choose_target' }
-Plug 'rhysd/vim-clang-format'
-Plug 'clang-complete'
+Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
+Plug 'tpope/vim-fugitive'
 " Plug 'zchee/deoplete-clang'
  " Plug 'taketwo/vim-ros'
 " Plug 'iCyMind/NeoSolarized'
@@ -34,7 +36,6 @@ Plug 'clang-complete'
 " Plug 'jplaut/vim-arduino-ino/'
 " Plug 'kana/vim-operator-user'
 " Plug 'OmniCppComplete'
-" Plug 'tpope/vim-fugitive'
 " Plug 'sbdchd/neoformat'
 " Plug 'valloric/MatchTagAlways'
 
@@ -47,6 +48,8 @@ call plug#end()
 " colorscheme NeoSolarized
 set background=dark
 let g:neosolarized_contrast = "high"
+" transparent bg
+" let g:dracula_colorterm = 0
 color dracula
 " Trigger configuration. Do not use <tab> if you use
 " https://github.com/Valloric/YouCompleteMe.
@@ -60,6 +63,7 @@ let mapleader=" "
 
 xmap ga <Plug>(EasyAlign)
 
+let g:python3_host_prog =   '/home/vercueit/nvim_venv/bin/python'
 
 
 syntax enable
@@ -94,7 +98,7 @@ nnoremap <leader>e :tabe ~/.config/nvim/init.vim<CR>G
 nnoremap <leader>i :PlugInstall<CR>
 
 nnoremap <leader>m :w<CR>:silent !pdflatex main.tex<CR><C-l>
-nnoremap <leader>r :source ~/.config/nvim/init.vim<CR>
+" nnoremap <leader>r :source ~/.config/nvim/init.vim<CR>
 
 "j and k movemements
 nnoremap j gj
@@ -133,7 +137,6 @@ inoremap ,, <esc>mz[sz=1<CR>`za
 "let g:deoplete#enable_at_startup = 1
 " deoplete tab-complete
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-
 
 
 " Tagbar Toggle
@@ -210,6 +213,7 @@ let g:vim_arduino_ino_cpu = 'atmega2560'
 " set statusline+=%#warningmsg#
 " set statusline+=%{SyntasticStatuslineFlag()}
 " set statusline+=%*
+set statusline+=%{FugitiveStatusline()}
 
 " let g:syntastic_always_populate_loc_list = 1
 " let g:syntastic_auto_loc_list = 1
@@ -235,3 +239,15 @@ let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 0
 nnoremap <leader>9 :bNext<cr>
 nnoremap <leader>0 :bprevious<cr>
 nnoremap <leader><tab> :b#<cr>
+
+let g:pymode = 1
+let g:pymode_python = 'python3'
+let g:pymode_virtualenv = 1
+let g:pymode_virtualenv_path = $VIRTUAL_ENV
+let g:pymode_run = 1
+let g:pymode_run_bind = '<leader>r'
+let g:pymode_lint = 1
+let g:pymode_lint_on_write = 1
+let g:pymode_lint_message = 1
+let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
+
