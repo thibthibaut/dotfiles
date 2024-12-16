@@ -1,0 +1,23 @@
+import = [ "~/.config/alacritty/aura/aura-theme.toml" ]
+
+[env]
+TERM = "xterm-256color"
+
+[window]
+opacity = 0.7
+
+[font]
+size = 9.5
+
+[font.normal]
+family = "Iosevka Nerd Font"
+style = "Regular"
+
+[font.bold]
+family = "Iosevka Nerd Font"
+style = "Bold"
+
+[font.italic]
+family = "Iosevka Nerd Font"
+style = "Italic"
+

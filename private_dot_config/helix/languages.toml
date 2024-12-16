@@ -1,0 +1,59 @@
+[[language]]
+name = "rust"
+language-servers = ["rust-analyzer"]
+
+
+[language-server.rust-analyzer.config]
+check.command = "clippy"
+[language-server.clangd]
+name = "clangd"
+command = "clangd-16"
+
+[language-server.pylsp]
+command = "pylsp"
+
+[language-server.pylsp.config]
+pylsp.plugins.pyls_mypy.enabled = true
+pylsp.plugins.pyls_mypy.live_mode = true
+
+
+[language-server.cmake-lsp]
+command = "cmake-language-server"
+auto-format = false
+
+[language-server.ruff]
+command = "ruff"
+args = ["server", "--preview"]
+
+[language-server.sonarlint]
+name = "sonarlint"
+command = "java"
+args =["-jar", "/home/tvercueil/Desktop/sonarlint/extension/server/sonarlint-ls.jar", "-stdio", "-analyzers", "/home/tvercueil/Desktop/sonarlint/extension/analyzers/sonarcfamily.jar", "-Dsonar.cfamily.compile-commands=/home/tvercueil/ws/metavision-computational-imaging/compile-commands.json"]
+
+[[language]]
+name = "cpp"
+scope = "source.cpp"
+formatter = { command = "clang-format" } # , args = ["-i"] }
+language-servers = ["clangd" ]
+file-types = ["cpp", "h", "hpp"]
+auto-format = false
+
+[[language]]
+name = "python"
+roots = ["pyproject.toml", "setup.py", "Poetry.lock", ".git"]
+language-servers = ["ruff", "pylsp"]
+# auto-format = true
+# formatter = {command = 'ruff', args = ["format"]}
+# formatter = {command = "black", args = ["-",  "--quiet","--line-length=120",]}
+
+# [[language]]
+# name = "cmake"
+# file-types = ["CMakeLists.txt", "cmake"]
+# language-servers = [ "cmake-lsp" ]
+# formatter = {command = "gersemi", args = ["--list-expansion favour-expansion"]}
+
+# [[language]]
+# name = "bash"
+
+# [[language]]
+# name = "json"
