@@ -1,5 +1,12 @@
 { config, pkgs, lib, ... }:
 
+
+let
+
+  pkgsUnstable = import <nixpkgs-unstable> {};
+
+in
+
 # https://lazamar.co.uk/nix-versions/?channel=nixpkgs-unstable
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -19,6 +26,8 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
+    pkgs.ghostty
+    pkgsUnstable.helix
     pkgs.nix-your-shell
     pkgs.android-tools
     pkgs.asciinema
