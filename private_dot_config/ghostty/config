@@ -1,0 +1,5 @@
+font-family = Iosevka Nerd Font
+window-decoration = false 
+background-opacity = 0.8
+background-blur-radius = 20
+theme = catppuccin-mocha

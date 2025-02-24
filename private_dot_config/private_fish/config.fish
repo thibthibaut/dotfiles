@@ -20,6 +20,7 @@ alias blue='bluetoothctl connect  AC:80:0A:AB:6F:89'
 alias unblue='bluetoothctl disconnect  AC:80:0A:AB:6F:89'
 alias hifi='pacmd set-card-profile bluez_card.AC_80_0A_AB_6F_89 a2dp_sink'
 alias mountceleste='sudo sshfs -o allow_other,default_permissions tvercueil@10.114.2.73:/share2/ /mnt/celeste2'
+alias cdd='cd $(git rev-parse --show-toplevel)'
 
 export CPM_SOURCE_CACHE=$HOME.cache/cpm
 
@@ -102,3 +103,5 @@ complete -c just -n __fish_use_subcommand -s V -l version -d 'Print version info
 # Added by LM Studio CLI (lms)
 set -gx PATH $PATH $HOME/.cache/lm-studio/bin
 fish_add_path $HOME/.pixi/bin
+
+nix-your-shell fish | source

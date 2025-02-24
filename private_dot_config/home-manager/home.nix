@@ -22,14 +22,12 @@ in
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
   home.stateVersion = "24.05"; # Please read the comment before changing.
-
+   
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
-    pkgs.ghostty
-    pkgsUnstable.helix
-    pkgs.nix-your-shell
-    pkgs.android-tools
+    #pkgs.android-tools
+    pkgs.age
     pkgs.asciinema
     pkgs.ast-grep
     pkgs.atuin
@@ -74,9 +72,11 @@ in
     pkgs.most
     pkgs.nil
     pkgs.ninja
+    pkgs.nix-your-shell
     pkgs.obsidian
     pkgs.openvpn
     pkgs.pandoc
+    pkgs.patchelf
     pkgs.peek
     pkgs.poetry
     pkgs.pre-commit
@@ -89,10 +89,12 @@ in
     pkgs.rustup
     pkgs.s3cmd
     pkgs.sct
+    pkgs.serpl
     pkgs.shfmt
     pkgs.signal-desktop
     pkgs.slack
     pkgs.spotify
+    pkgs.sshfs
     pkgs.taplo
     pkgs.taskwarrior3
     pkgs.teams-for-linux
@@ -107,13 +109,13 @@ in
     pkgs.vlc
     pkgs.vscode-langservers-extracted
     pkgs.vscodium
-    pkgs.vscodium
     pkgs.wgnord
     pkgs.wireguard-tools
     pkgs.xdg-utils
     pkgs.yazi
     pkgs.zellij
     pkgs.zsync
+    pkgsUnstable.helix
 
     # (pkgs.nerd-fonts.override { fonts = [ "Iosevka" ]; })
 
@@ -139,14 +141,14 @@ in
     #   org.gradle.daemon.idletimeout=3600000
     # '';
     # Define a location for the AppImage
-   ".local/bin/netron" = {
-    source = builtins.fetchurl {
-      url = "https://github.com/lutzroeder/netron/releases/download/v7.9.5/Netron-7.9.5.AppImage";
-      sha256 = "0n8n6m6b9fn191rnagcgvq2fcmk41y3w10r800id2ay5fdbarxss";
-
-    };
-    executable = true; 
-  };
+#   ".local/bin/netron" = {
+#    source = builtins.fetchurl {
+#      url = "https://github.com/lutzroeder/netron/releases/download/v7.9.5/Netron-7.9.5.AppImage";
+#      sha256 = "0n8n6m6b9fn191rnagcgvq2fcmk41y3w10r800id2ay5fdbarxss";
+#
+#    };
+#    executable = true; 
+#  };
   };
 
   home.activation = {
@@ -180,7 +182,6 @@ in
       XKB_DEFAULT_VARIANT = "alt-intl";
   };
 
-  
 
   # home.activation.setMimeDefaults = lib.mkAfter ''
   #   # Set Brave as the default for additional MIME types
