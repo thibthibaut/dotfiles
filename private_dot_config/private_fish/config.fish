@@ -23,7 +23,7 @@ alias mountceleste='sudo sshfs -o allow_other,default_permissions tvercueil@10.1
 alias cdd='cd $(git rev-parse --show-toplevel)'
 
 export CPM_SOURCE_CACHE=$HOME.cache/cpm
-
+export NIXPKGS_ALLOW_UNFREE=1
 function fish_user_key_bindings
     # Execute this once per mode that emacs bindings should be used in
     fish_default_key_bindings -M insert

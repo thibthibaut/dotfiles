@@ -1,6 +1,7 @@
 { config, pkgs, lib, ... }:
 
 
+
 let
 
   pkgsUnstable = import <nixpkgs-unstable> {};
@@ -14,6 +15,11 @@ in
   home.username = "tvercueil";
   home.homeDirectory = "/home/tvercueil/";
 
+  #nixGL.packages = import <nixgl> { inherit pkgs; };
+  #nixGL.defaultWrapper = "mesa";
+  #nixGL.installScripts = [ "mesa"];
+
+
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
   # introduces backwards incompatible changes.
@@ -21,13 +27,18 @@ in
   # You should not change this value, even if you update Home Manager. If you do
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
-  home.stateVersion = "24.05"; # Please read the comment before changing.
+  home.stateVersion = "24.11"; # Please read the comment before changing.
    
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
     #pkgs.android-tools
+    pkgs.xclip
+    pkgs.starship
     pkgs.age
+    pkgs.fish
+    pkgs.fishPlugins.bass
+    pkgs.ghostty
     pkgs.asciinema
     pkgs.ast-grep
     pkgs.atuin
@@ -101,7 +112,7 @@ in
     pkgs.tldr
     pkgs.traceroute
     pkgs.typst
-    pkgs.typst-lsp
+    #pkgs.typst-lsp
     pkgs.typstyle
     pkgs.unar
     pkgs.uv
@@ -116,7 +127,8 @@ in
     pkgs.zellij
     pkgs.zsync
     pkgsUnstable.helix
-
+    pkgs.nerd-fonts.iosevka
+    # pkgs.nerdfonts.iosevka
     # (pkgs.nerd-fonts.override { fonts = [ "Iosevka" ]; })
 
     # # You can also create simple shell scripts directly inside your
