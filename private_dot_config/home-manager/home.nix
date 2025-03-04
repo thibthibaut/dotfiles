@@ -5,7 +5,7 @@
 let
 
   pkgsUnstable = import <nixpkgs-unstable> {};
-
+  nixGL = import <nixgl> {};
 in
 
 # https://lazamar.co.uk/nix-versions/?channel=nixpkgs-unstable
@@ -15,10 +15,16 @@ in
   home.username = "tvercueil";
   home.homeDirectory = "/home/tvercueil/";
 
-  #nixGL.packages = import <nixgl> { inherit pkgs; };
+  # nixGL.defaultWrapper = "mesa";
+  # nixGL.offloadWrapper = "nvidiaPrime";
+  # nixGL.installScripts = [ "mesa" ];  #nixGL.packages = import <nixgl> { inherit pkgs; };
+
   #nixGL.defaultWrapper = "mesa";
   #nixGL.installScripts = [ "mesa"];
-
+  # programs.ghostty = {
+  #   enable = true;
+  #   package = config.lib.nixGL.wrap pkgs.ghostty;
+  # };
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -32,13 +38,15 @@ in
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
-    #pkgs.android-tools
+    pkgs.android-tools
+    pkgs.llvmPackages_19.clang-tools
+    pkgs.awscli2
+    pkgs.brave
     pkgs.xclip
-    pkgs.starship
     pkgs.age
     pkgs.fish
     pkgs.fishPlugins.bass
-    pkgs.ghostty
+    pkgs.fishPlugins.tide
     pkgs.asciinema
     pkgs.ast-grep
     pkgs.atuin
@@ -128,8 +136,6 @@ in
     pkgs.zsync
     pkgsUnstable.helix
     pkgs.nerd-fonts.iosevka
-    # pkgs.nerdfonts.iosevka
-    # (pkgs.nerd-fonts.override { fonts = [ "Iosevka" ]; })
 
     # # You can also create simple shell scripts directly inside your
     # # configuration. For example, this adds a command 'my-hello' to your
