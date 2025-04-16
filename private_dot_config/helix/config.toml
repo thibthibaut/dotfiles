@@ -10,12 +10,17 @@
 theme = "tokyonight"
 # theme = "ayu_mirage"
 # theme = "onelight"
+#theme = "zed_onedark"
+# theme = "modus_vivendi_tinted"
+# theme = "bogster"
 
 # theme = "tokyoday"
 [editor]
 auto-save	= true
 auto-format	= true
 end-of-line-diagnostics = "hint"
+jump-label-alphabet = "asdfghjklbnmyuiopzxcvqwert"
+bufferline = "multiple"
 
 [editor.cursor-shape]
 insert = "bar"
@@ -46,7 +51,16 @@ tab = ":format"
 "}" = ["goto_next_paragraph", "collapse_selection"]
 X = ["extend_line_up", "extend_to_line_bounds"]
 "ret" = "goto_word"
+C-g = [
+    ":write-all", 
+    ":new", 
+    ":insert-output lazygit", 
+    ":buffer-close!", 
+    ":redraw", 
+    ":reload-all"
+]
 
 [keys.normal.space]
 tab = "goto_last_accessed_file"
-
+"1" = ":buffer-previous"
+"2" = ":buffer-next"

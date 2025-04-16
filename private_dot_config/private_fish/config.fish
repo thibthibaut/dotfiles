@@ -4,6 +4,15 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
 end
 
+function n
+    set tmp (mktemp -t "yazi-cwd.XXXXXX")
+    yazi $argv --cwd-file="$tmp"
+    if set cwd (command cat -- "$tmp"); and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
+        builtin cd -- "$cwd"
+    end
+    rm -f -- "$tmp"
+end
+
 abbr --add mci cd ~/ws/metavision-computational-imaging
 abbr --add gs git status
 abbr --add scw set -x AWS_DEFAULT_PROFILE scw
@@ -19,8 +28,9 @@ alias cat='bat'
 alias blue='bluetoothctl connect  AC:80:0A:AB:6F:89'
 alias unblue='bluetoothctl disconnect  AC:80:0A:AB:6F:89'
 alias hifi='pacmd set-card-profile bluez_card.AC_80_0A_AB_6F_89 a2dp_sink'
-alias mountceleste='sudo sshfs -o allow_other,default_permissions tvercueil@10.114.2.73:/share2/ /mnt/celeste2'
+alias mountceleste='sudo -e sshfs -o allow_other,default_permissions tvercueil@10.114.2.73:/share2/ /mnt/celeste2'
 alias cdd='cd $(git rev-parse --show-toplevel)'
+alias s5cmd='s5cmd --endpoint-url=https://axzhdeir8b7i.compat.objectstorage.eu-frankfurt-1.oraclecloud.com'
 
 export CPM_SOURCE_CACHE=$HOME.cache/cpm
 export NIXPKGS_ALLOW_UNFREE=1
@@ -49,6 +59,7 @@ bind -M insert \cz 'fg 2>/dev/null; commandline -f repaint'
 bind \cz 'fg 2>/dev/null; commandline -f repaint'
 
 set PATH $PATH $HOME/.local/bin
+set PATH $PATH $HOME/.cargo/bin/
 
 function __fish_just_complete_recipes
     just --list 2>/dev/null | sed -e '1d; s/^\s*\([^[:space:]]*\)[^#]*$/\1/' -e 's/^\s*\([^[:space:]]*\)[^#]*# \(.*\)$/\1\t\2/'

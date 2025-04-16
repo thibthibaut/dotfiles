@@ -3,9 +3,7 @@
 
 
 let
-
-  pkgsUnstable = import <nixpkgs-unstable> {};
-  nixGL = import <nixgl> {};
+ pkgsUnstable = import <nixpkgs-unstable> {};
 in
 
 # https://lazamar.co.uk/nix-versions/?channel=nixpkgs-unstable
@@ -14,17 +12,6 @@ in
   # manage.
   home.username = "tvercueil";
   home.homeDirectory = "/home/tvercueil/";
-
-  # nixGL.defaultWrapper = "mesa";
-  # nixGL.offloadWrapper = "nvidiaPrime";
-  # nixGL.installScripts = [ "mesa" ];  #nixGL.packages = import <nixgl> { inherit pkgs; };
-
-  #nixGL.defaultWrapper = "mesa";
-  #nixGL.installScripts = [ "mesa"];
-  # programs.ghostty = {
-  #   enable = true;
-  #   package = config.lib.nixGL.wrap pkgs.ghostty;
-  # };
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -38,6 +25,17 @@ in
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
+    pkgs.lazygit
+    pkgs.i3lock-color
+    pkgs.mermaid-cli
+    pkgs.presenterm
+    pkgs.inkscape
+    pkgs.freeoffice
+    pkgs.arandr
+    pkgs.sxiv
+    pkgs.television
+    pkgs.devenv
+    pkgs.bear
     pkgs.android-tools
     pkgs.llvmPackages_19.clang-tools
     pkgs.awscli2
@@ -104,9 +102,12 @@ in
     pkgs.ripgrep
     pkgs.rofi
     pkgs.ruff
-    pkgs.ruff
     pkgs.rustup
     pkgs.s3cmd
+    pkgs.s4cmd
+    pkgs.s5cmd
+    pkgs.sttr
+    pkgs.sshfs
     pkgs.sct
     pkgs.serpl
     pkgs.shfmt
@@ -120,7 +121,7 @@ in
     pkgs.tldr
     pkgs.traceroute
     pkgs.typst
-    #pkgs.typst-lsp
+    pkgs.tinymist
     pkgs.typstyle
     pkgs.unar
     pkgs.uv
