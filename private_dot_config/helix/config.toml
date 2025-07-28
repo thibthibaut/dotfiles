@@ -7,14 +7,15 @@
 
 # theme = "rose_pine"
 # ttheme = "dracula"
-theme = "tokyonight"
+# theme = "tokyonight"
 # theme = "ayu_mirage"
 # theme = "onelight"
 #theme = "zed_onedark"
 # theme = "modus_vivendi_tinted"
 # theme = "bogster"
-
-# theme = "tokyoday"
+# theme = "ataraxia"
+theme = "tokyonight"
+ 
 [editor]
 auto-save	= true
 auto-format	= true
@@ -22,10 +23,20 @@ end-of-line-diagnostics = "hint"
 jump-label-alphabet = "asdfghjklbnmyuiopzxcvqwert"
 bufferline = "multiple"
 
+
 [editor.cursor-shape]
 insert = "bar"
 normal = "block"
 select = "underline"
+
+[editor.statusline]
+left = ["mode"]
+center = ["version-control", "spinner", "file-name", "read-only-indicator", "file-modification-indicator"]
+right = ["total-line-numbers", "diagnostics", "selections", "register", "position", "file-encoding", "separator"]
+separator = "▽"
+mode.normal = "(„• ᴗ •„)"
+mode.insert = "(｡•̀ᴗ-)✧☆*:・ﾟ"
+mode.select = "｡ﾟ･ (>﹏<) ･ﾟ｡"
 
 [editor.file-picker]
 hidden = false
@@ -43,7 +54,7 @@ skip-levels = 1
 cursor-line = "warning"
 
 [keys.insert]
-j = { k = "normal_mode" } # Maps `jk` to exit insert mode
+j = { k = [":write-all", "normal_mode"] } # Maps `jk` to exit insert mode
 
 [keys.normal]
 tab = ":format"

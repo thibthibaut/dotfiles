@@ -13,7 +13,7 @@
       nixgl.url = "github:nix-community/nixGL";
   };
 
-  outputs = { nixpkgs, home-manager, zen-browser, ghostty, nixgl, ... }:
+  outputs = { nixpkgs, home-manager, zen-browser, ghostty, nixgl,  ... }:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
@@ -40,7 +40,7 @@
         modules = [
           {
               home.packages = [
-                zen-browser.packages."${system}".default
+                # zen-browser.packages."${system}".default
                 #ghostty.packages."${system}".default
                 ghostty-wrapped
                 ghostty-desktop

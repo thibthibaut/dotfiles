@@ -16,8 +16,9 @@ end
 abbr --add mci cd ~/ws/metavision-computational-imaging
 abbr --add gs git status
 abbr --add scw set -x AWS_DEFAULT_PROFILE scw
-abbr --add prp poetry run python
 abbr --add cm chezmoi
+abbr --add lg lazygit
+abbr --add ns nix-shell -p
 eval "$(direnv hook fish)"
 
 export EDITOR=hx
@@ -32,7 +33,7 @@ alias mountceleste='sudo -e sshfs -o allow_other,default_permissions tvercueil@1
 alias cdd='cd $(git rev-parse --show-toplevel)'
 alias s5cmd='s5cmd --endpoint-url=https://axzhdeir8b7i.compat.objectstorage.eu-frankfurt-1.oraclecloud.com'
 
-export CPM_SOURCE_CACHE=$HOME.cache/cpm
+export CPM_SOURCE_CACHE=$HOME/.cache/cpm
 export NIXPKGS_ALLOW_UNFREE=1
 function fish_user_key_bindings
     # Execute this once per mode that emacs bindings should be used in
@@ -45,7 +46,6 @@ function fish_user_key_bindings
     fish_vi_key_bindings --no-erase insert
 
 end
-
 
 # ATUIN
 set -gx ATUIN_NOBIND true

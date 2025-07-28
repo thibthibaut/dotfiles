@@ -1,7 +1,6 @@
 { config, pkgs, lib, ... }:
 
 
-
 let
  pkgsUnstable = import <nixpkgs-unstable> {};
 in
@@ -25,8 +24,11 @@ in
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
+    pkgs.nushell
+    pkgs.zathura
+    pkgs.nodejs
+    pkgs.imhex
     pkgs.lazygit
-    pkgs.i3lock-color
     pkgs.mermaid-cli
     pkgs.presenterm
     pkgs.inkscape
@@ -111,7 +113,7 @@ in
     pkgs.sct
     pkgs.serpl
     pkgs.shfmt
-    pkgs.signal-desktop
+    # pkgs.signal-desktop
     pkgs.slack
     pkgs.spotify
     pkgs.sshfs
