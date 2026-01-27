@@ -24,6 +24,8 @@ in
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
+    pkgs.bpm-tools
+    pkgs.sox
     pkgs.nushell
     pkgs.zathura
     pkgs.nodejs
@@ -36,7 +38,7 @@ in
     pkgs.arandr
     pkgs.sxiv
     pkgs.television
-    pkgs.devenv
+    pkgsUnstable.devenv
     pkgs.bear
     pkgs.android-tools
     pkgs.llvmPackages_19.clang-tools
@@ -115,7 +117,6 @@ in
     pkgs.shfmt
     # pkgs.signal-desktop
     pkgs.slack
-    pkgs.spotify
     pkgs.sshfs
     pkgs.taplo
     pkgs.taskwarrior3
@@ -200,7 +201,7 @@ in
       EDITOR = "hx";
       # Set the keyboard layout when the session starts
       XKB_DEFAULT_LAYOUT = "us";
-      XKB_DEFAULT_VARIANT = "alt-intl";
+      XKB_DEFAULT_VARIANT = "altgr-intl";
   };
 
 

@@ -1,4 +1,3 @@
-import = [ "~/.config/alacritty/aura/aura-theme.toml" ]
 
 [env]
 TERM = "xterm-256color"
@@ -20,4 +19,7 @@ style = "Bold"
 [font.italic]
 family = "Iosevka Nerd Font"
 style = "Italic"
+
+[general]
+import = [ "~/.config/alacritty/aura/aura-theme.toml" ]
 

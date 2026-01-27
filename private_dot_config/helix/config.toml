@@ -14,14 +14,15 @@
 # theme = "modus_vivendi_tinted"
 # theme = "bogster"
 # theme = "ataraxia"
-theme = "tokyonight"
+# theme = "tokyonight"
+theme = "carbonfox"
  
 [editor]
 auto-save	= true
 auto-format	= true
 end-of-line-diagnostics = "hint"
-jump-label-alphabet = "asdfghjklbnmyuiopzxcvqwert"
-bufferline = "multiple"
+jump-label-alphabet = "asdfghjklqwertyuiopzxcvbnm"
+# bufferline = "multiple"
 
 
 [editor.cursor-shape]

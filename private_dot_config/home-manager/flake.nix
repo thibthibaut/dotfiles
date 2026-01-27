@@ -42,9 +42,9 @@
               home.packages = [
                 # zen-browser.packages."${system}".default
                 #ghostty.packages."${system}".default
-                ghostty-wrapped
-                ghostty-desktop
-                nixgl.packages."${system}".default
+                #ghostty-wrapped
+                #ghostty-desktop
+                #nixgl.packages."${system}".default
               ];
             
           }

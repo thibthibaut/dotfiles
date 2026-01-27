@@ -1,4 +1,8 @@
+source $HOME/.nix-profile/share/fish/vendor_functions.d/bass.fish
 bass source $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
+
+set PATH $PATH $HOME/.nix-profile/bin
+set PATH $PATH /nix/var/nix/profiles/default/bin
 
 if status is-interactive
     # Commands to run in interactive sessions can go here
@@ -116,3 +120,5 @@ set -gx PATH $PATH $HOME/.cache/lm-studio/bin
 fish_add_path $HOME/.pixi/bin
 
 nix-your-shell fish | source
+
+fish_add_path /home/tvercueil/.pixi/bin
