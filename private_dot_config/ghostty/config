@@ -1,5 +1,5 @@
-font-family = "Iosevka Term"
-window-decoration = false
+font-family = "Iosevka Nerd Font"
+# window-decoration = none
 background-opacity = 0.9
 background-blur-radius = 10
 font-size = 13
