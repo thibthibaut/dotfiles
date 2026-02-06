@@ -28,10 +28,8 @@ in
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
-    pkgs.runc # Container runtime
-    pkgs.conmon # Container monitor (often missing in basic installs)
-    pkgs.slirp4netns # User-mode networking (vital for rootless)
-    pkgs.fuse-overlayfs # User-mode filesystem
+    # pkgs.kitty
+    # pkgs.slack
     pkgs.age
     pkgs.android-tools
     pkgs.arandr
@@ -47,13 +45,14 @@ in
     pkgs.binwalk
     pkgs.bpm-tools
     pkgs.brave
-    pkgs.brave
+    pkgs.brightnessctl # Brightness control
     pkgs.ccache
     pkgs.check-jsonschema
     pkgs.chezmoi
     pkgs.cmake-language-server
     pkgs.commitizen
-    pkgs.conan
+    pkgsUnstable.conan
+    pkgs.conmon # Container monitor (often missing in basic installs)
     pkgs.delta
     pkgs.direnv
     pkgs.doxygen
@@ -66,6 +65,8 @@ in
     pkgs.flameshot
     pkgs.fortune
     pkgs.freeoffice
+    pkgs.freerdp
+    pkgs.fuse-overlayfs # User-mode filesystem
     pkgs.fzf
     pkgs.gh
     pkgs.gimp
@@ -80,12 +81,13 @@ in
     pkgs.inkscape
     pkgs.jrnl
     pkgs.just
-    pkgs.kitty
     pkgs.lazygit
     pkgs.llvmPackages_19.clang-tools
+    pkgs.lxappearance # GUI for setting GTK themes
     pkgs.mermaid-cli
     pkgs.most
     pkgs.nerd-fonts.iosevka
+    pkgs.networkmanagerapplet # nm-applet (Wifi tray icon)
     pkgs.nil
     pkgs.ninja
     pkgs.nix-your-shell
@@ -94,17 +96,22 @@ in
     pkgs.obsidian
     pkgs.openvpn
     pkgs.pandoc
+    pkgs.pasystray # Volume tray icon
     pkgs.patchelf
+    pkgs.pavucontrol # GUI Volume control
     pkgs.peek
+    pkgs.playerctl # Media control (Play/Pause keys)
     pkgs.podman
     pkgs.poetry
     pkgs.pre-commit
     pkgs.presenterm
+    pkgs.pulseaudio # Provides pactl (useful for compatibility)
     pkgs.rawtherapee
     pkgs.rclone
     pkgs.ripgrep
     pkgs.rofi
     pkgs.ruff
+    pkgs.runc # Container runtime
     pkgs.rustup
     pkgs.s3cmd
     pkgs.s4cmd
@@ -112,7 +119,7 @@ in
     pkgs.sct
     pkgs.serpl
     pkgs.shfmt
-    pkgs.slack
+    pkgs.slirp4netns # User-mode networking (vital for rootless)
     pkgs.sox
     pkgs.sshfs
     pkgs.sshfs
@@ -242,8 +249,6 @@ in
         name = "bass";
         src = pkgs.fishPlugins.bass.src;
       }
-      # nix-your-shell is better managed as a package + init script if not using the module,
-      # but there is a dedicated program module for it too (see below)
     ];
 
     # Aliases
@@ -258,10 +263,6 @@ in
       # Note: command substitution $() works differently in fish, but aliases are literal text replacement.
       # For complex logic, functions are better, but this often works if invoked as `cdd`
       cdd = "cd (git rev-parse --show-toplevel)";
-      s5cmd = "s5cmd --endpoint-url=https://axzhdeir8b7i.compat.objectstorage.eu-frankfurt-1.oraclecloud.com";
-
-      # Docker alias (kept exactly as requested)
-      Q = "docker run -it -u (id -u):(id -g) -v (pwd):(pwd) -w (pwd) rg.fr-par.scw.cloud/prophesee-devops/qnn:2.8";
     };
 
     # Abbreviations
@@ -270,6 +271,7 @@ in
       cm = "chezmoi";
       lg = "lazygit";
       ns = "nix-shell -p";
+      hm = "home-manager switch --impure";
     };
 
     # Custom Functions
@@ -314,8 +316,225 @@ in
   };
 
   services.podman.enable = true;
-  # xsession.enable = true;
-  # xsession.windowManager.command = "${pkgs.i3}/bin/i3";
+
+  xsession = {
+    enable = true;
+    windowManager.i3 = {
+      enable = true;
+      package = pkgs.i3;
+      config = {
+        modifier = "Mod4"; # Windows Key
+
+        defaultWorkspace = "workspace 1";
+        window.border = 2;
+        window.titlebar = false; # This ensures titlebars are off
+
+        colors = {
+          focused = {
+            border = "#4c7899";
+            background = "#285577";
+            text = "#ffffff";
+            indicator = "#2e9ef4";
+            childBorder = "#285577";
+          };
+          focusedInactive = {
+            border = "#333333";
+            background = "#5f676a";
+            text = "#ffffff";
+            indicator = "#484e50";
+            childBorder = "#5f676a";
+          };
+        };
+
+        # Use h/j/k/l for focus
+        keybindings = lib.mkOptionDefault {
+          "Mod4+h" = "focus left";
+          "Mod4+j" = "focus down";
+          "Mod4+k" = "focus up";
+          "Mod4+l" = "focus right";
+
+          # Move focused window
+          "Mod4+Shift+h" = "move left";
+          "Mod4+Shift+j" = "move down";
+          "Mod4+Shift+k" = "move up";
+          "Mod4+Shift+l" = "move right";
+
+          # Terminal
+          "Mod4+Return" = "exec ghostty";
+
+          "Mod4+Tab" = "workspace back_and_forth";
+
+          # Kill window
+          "Mod4+Shift+q" = "kill";
+
+          # Launcher
+          "Mod4+d" = "exec --no-startup-id ${pkgs.rofi}/bin/rofi -show drun";
+
+          # Lock (Note: on Ubuntu i3lock must be installed with apt)
+          "Mod4+Escape" = "exec --no-startup-id i3lock -c 391336";
+
+          # Media Keys (Volume & Brightness)
+          "XF86AudioRaiseVolume" = "exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5%";
+          "XF86AudioLowerVolume" = "exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5%";
+          "XF86AudioMute" = "exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle";
+          "XF86AudioMicMute" = "exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle";
+          "XF86MonBrightnessUp" = "exec brightnessctl set +5%";
+          "XF86MonBrightnessDown" = "exec brightnessctl set 5%-";
+        };
+
+        # Integration with i3status-rust
+        bars = [
+          {
+            statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ${config.home.homeDirectory}/.config/i3status-rust/config-bottom.toml";
+            fonts = {
+              names = [ "Iosevka Nerd Font" ];
+              size = 10.0;
+            };
+          }
+        ];
+
+        # Autostart applications
+        startup = [
+          {
+            command = "nm-applet";
+            notification = false;
+          }
+          {
+            command = "blueman-applet";
+            notification = false;
+          }
+          {
+            command = "${pkgs.feh}/bin/feh --bg-scale ~/Pictures/wallpaper-boston.jpg";
+            notification = false;
+            always = true;
+          }
+          {
+            command = "xinput set-prop 'SYNA8018:00 06CB:CE67 Touchpad' 'libinput Natural Scrolling Enabled' 1";
+            notification = false;
+            always = true;
+          }
+          {
+            command = "xset r rate 200 60";
+            notification = false;
+            always = true;
+          }
+        ];
+      };
+    };
+  };
+
+  programs.i3status-rust = {
+    enable = true;
+    bars = {
+      bottom = {
+        blocks = [
+          {
+            block = "disk_space";
+            path = "/";
+            info_type = "available";
+            interval = 60;
+            warning = 20.0;
+            alert = 10.0;
+            format = " $icon $available ";
+          }
+          {
+            block = "memory";
+            format = " $icon $mem_used_percents.eng(w:2) ";
+            format_alt = " $icon $swap_used_percents ";
+          }
+          {
+            block = "cpu";
+            interval = 1;
+            format = " $icon $barchart ";
+          }
+          {
+            block = "sound";
+            click = [
+              {
+                button = "left";
+                cmd = "pavucontrol";
+              }
+            ];
+          }
+          {
+            block = "time";
+            interval = 60;
+            format = " $timestamp.datetime(f:'%a %d/%m %R') ";
+          }
+        ];
+        settings = {
+          theme = {
+            theme = "solarized-dark";
+            overrides = {
+              idle_bg = "#123456";
+              idle_fg = "#abcdef";
+            };
+          };
+        };
+        icons = "material-nf";
+        theme = "ctp-mocha";
+      };
+    };
+  };
+
+  programs.rofi = {
+    enable = true;
+    theme = "solarized";
+  };
+
+  services.picom = {
+    enable = true;
+    # Fix screen tearing
+    vSync = true;
+    # Fade windows in/out
+    fade = true;
+    fadeDelta = 2;
+    # Opacity rules (optional)
+    activeOpacity = 1.0;
+    inactiveOpacity = 0.95;
+    opacityRules = [
+      "100:class_g = 'i3lock'"
+    ];
+  };
+
+  programs.git = {
+    enable = true;
+
+    settings = {
+      # Identity
+      user = {
+        name = "Thibaut Vercueil";
+        email = "tvercueil@prophesee.ai";
+      };
+
+      # Rebase behavior
+      pull = {
+        rebase = true;
+      };
+
+      # Performance optimizations
+      pack = {
+        threads = 0; # Auto-detect CPU cores
+        windowMemory = "5g";
+        packSizeLimit = "2g";
+      };
+
+      core = {
+        packedGitLimit = "512m";
+        packedGitWindowSize = "512m";
+        bigFileThreshold = "50m";
+        # fsmonitor = true;    # Optional: fast file system monitoring
+      };
+
+      feature = {
+        manyFiles = true; # Optimizations for large file counts
+      };
+    };
+  };
+
+  services.network-manager-applet.enable = true;
+  services.blueman-applet.enable = true;
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }

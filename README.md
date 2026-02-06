@@ -28,3 +28,24 @@ encryption = "age"
 ```
 
 - Run `chezmoi apply -v`
+
+## Notes
+
+To add fish as the default shell:
+
+```
+echo "$HOME/.nix-profile/bin/fish" | sudo tee -a /etc/shells
+chsh # Select fish
+```
+
+To add i3 to startup menu:
+
+```
+sudo tee /usr/share/xsessions/home-manager-i3.desktop > /dev/null <<EOF
+[Desktop Entry]
+Name=Home Manager i3
+Comment=Log in using the Home Manager ~/.xsession script
+Exec=<HOME>/.xsession
+Type=Application
+EOF
+```
